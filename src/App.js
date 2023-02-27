@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
-import Following from './pages/Following';
+import { DefaultLayout } from './components/Layout';
 import { publicRoutes } from './routes';
 
 function App() {
@@ -9,7 +8,18 @@ function App() {
             <Routes>
                 {publicRoutes.map((route, index) => {
                     const Page = route.component;
-                    return <Route path={route.path} element={<Page />} />;
+                    const LayOut = route.layOut || DefaultLayout;
+                    return (
+                        <Route
+                            key={index}
+                            path={route.path}
+                            element={
+                                <LayOut>
+                                    <Page />
+                                </LayOut>
+                            }
+                        />
+                    );
                 })}
             </Routes>
         </BrowserRouter>
